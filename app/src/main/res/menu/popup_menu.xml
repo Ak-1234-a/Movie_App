@@ -5,8 +5,4 @@
         android:id="@+id/menu_payment"
         android:title="Proceed to Payment" />
 
-    <item
-        android:id="@+id/menu_other"
-        android:title="Other Option" />
-
 </menu>

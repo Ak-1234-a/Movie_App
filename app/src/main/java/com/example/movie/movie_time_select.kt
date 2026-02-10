@@ -35,11 +35,6 @@ class movie_time_select : AppCompatActivity() {
                         true
                     }
 
-                    R.id.menu_other -> {
-                        openContextMenu(view)
-                        true
-                    }
-
                     else -> false
                 }
             }
@@ -80,30 +75,6 @@ class movie_time_select : AppCompatActivity() {
         }
     }
 
-    private fun showOtherMenu(view: android.view.View) {
-        val otherMenu = PopupMenu(this, view, Gravity.BOTTOM)
-        otherMenu.menuInflater.inflate(R.menu.other_menu, otherMenu.menu)
 
-        otherMenu.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-
-                R.id.menu_proceed_payment -> {
-                    true
-                }
-
-                R.id.menu_view_details -> {
-                    true
-                }
-
-                R.id.menu_change_time -> {
-                    true
-                }
-
-                else -> false
-            }
-        }
-
-        otherMenu.show()
-    }
 
 }
