@@ -21,19 +21,22 @@ class movie_time_select : AppCompatActivity() {
 
         val btn = findViewById<Button>(R.id.button4)
 
-        btn.setOnClickListener { view ->
+        registerForContextMenu(btn)
 
+        btn.setOnClickListener { view ->
             val popupMenu = PopupMenu(this, view, Gravity.BOTTOM)
             popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
 
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
+
                     R.id.menu_payment -> {
                         startActivity(Intent(this, payment::class.java))
                         true
                     }
 
                     R.id.menu_other -> {
+                        openContextMenu(view)
                         true
                     }
 
@@ -44,4 +47,63 @@ class movie_time_select : AppCompatActivity() {
             popupMenu.show()
         }
     }
+
+    override fun onCreateContextMenu(
+        menu: android.view.ContextMenu,
+        v: android.view.View,
+        menuInfo: android.view.ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+
+        if (v.id == R.id.button4) {
+            menuInflater.inflate(R.menu.context_menu, menu)
+        }
+    }
+
+
+    override fun onContextItemSelected(item: android.view.MenuItem): Boolean {
+        return when (item.itemId) {
+
+            R.id.menu_proceed_payment -> {
+                true
+            }
+
+            R.id.menu_view_details -> {
+                true
+            }
+
+            R.id.menu_change_time -> {
+                true
+            }
+
+            else -> super.onContextItemSelected(item)
+        }
+    }
+
+    private fun showOtherMenu(view: android.view.View) {
+        val otherMenu = PopupMenu(this, view, Gravity.BOTTOM)
+        otherMenu.menuInflater.inflate(R.menu.other_menu, otherMenu.menu)
+
+        otherMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+
+                R.id.menu_proceed_payment -> {
+                    true
+                }
+
+                R.id.menu_view_details -> {
+                    true
+                }
+
+                R.id.menu_change_time -> {
+                    true
+                }
+
+                else -> false
+            }
+        }
+
+        otherMenu.show()
+    }
+
 }
