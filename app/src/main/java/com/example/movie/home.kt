@@ -1,60 +1,30 @@
 package com.example.movie
-import android.widget.LinearLayout // Added this
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import android.content.Intent // Added this
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Button
-import androidx.appcompat.widget.Toolbar
 
+import android.content.Intent
+import android.os.Bundle
+import android.widget.LinearLayout
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 
 class home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_home)
 
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        val btn = findViewById<Button>(R.id.loginButton)
-
-        val movie = findViewById<LinearLayout>(R.id.movie1)
-        movie.setOnClickListener {
-            val intent = Intent(this, movie_time_select::class.java)
-            startActivity(intent)
+        findViewById<LinearLayout>(R.id.movie1).setOnClickListener {
+            startActivity(Intent(this, movie_time_select::class.java))
         }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                AlertDialog.Builder(this@home)
+                    .setTitle("Exit")
+                    .setMessage("Are you sure you want to exit?")
+                    .setPositiveButton("Yes") { _, _ -> finishAffinity() }
+                    .setNegativeButton("No", null)
+                    .show()
+            }
+        })
     }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.options_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-
-            R.id.menu_profile -> {
-                true
-            }
-
-            R.id.menu_settings -> {
-                true
-            }
-
-            R.id.menu_help -> {
-                true
-            }
-
-            R.id.menu_logout -> {
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
 }
