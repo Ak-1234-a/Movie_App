@@ -18,7 +18,7 @@ class movie_time_select : AppCompatActivity() {
             popup.menuInflater.inflate(R.menu.popup_menu, popup.menu)
             popup.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.menu_payment) {
-                    startActivity(Intent(this, payment::class.java))
+                    startActivity(Intent(this, complete_payment::class.java))
                 }
                 true
             }
